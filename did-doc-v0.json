@@ -1,0 +1,16 @@
+{
+  "@context": {
+    "/": "zdpuAmoZixxJjvosviGeYcqduzDhSwGV2bL6ZTTXo1hbEJHfq"
+  },
+  "created": "2018-12-01T03:00:00Z",
+  "publicKey": [
+    {
+      "curve": "ed25519",
+      "expires": "2019-12-01T03:00:00Z",
+      "publicKeyBase64": "qmz7tpLNKKKdl7cD7PbejDiBVp7ONpmZbfmc7cEK9mg=",
+      "type": "EdDsaPublicKey"
+    }
+  ],
+  "updated": "2018-12-01T03:00:01Z"
+}
+
