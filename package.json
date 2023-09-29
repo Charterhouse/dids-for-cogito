@@ -3,14 +3,21 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "packageManager": "yarn@3.6.3",
   "dependencies": {
-    "@pinata/sdk": "^1.1.11",
-    "cids": "^1.0.2",
-    "esm": "^3.2.25",
-    "ipfs": "^0.51.0",
-    "ipfs-http-client": "^47.0.1",
-    "libp2p-crypto": "^0.18.0",
-    "multihashes": "^3.0.1",
-    "peer-id": "^0.14.2"
+    "@pinata/sdk": "^2.1.0",
+    "@react-frontend-developer/buffers": "^2.0.1",
+    "cids": "^1.1.9",
+    "ipfs": "^0.66.1",
+    "ipfs-http-client": "^60.0.1",
+    "it-all": "^3.0.3",
+    "it-map": "^3.0.4",
+    "it-pipe": "^3.0.1",
+    "it-tar": "^6.0.1",
+    "it-to-buffer": "^4.0.3",
+    "libp2p-crypto": "^0.21.2",
+    "multiformats": "^12.1.1",
+    "multihashes": "^4.0.3",
+    "peer-id": "^0.16.0"
   }
 }
