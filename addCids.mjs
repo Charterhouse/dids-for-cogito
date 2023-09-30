@@ -40,7 +40,9 @@ const ipfs = create('/ip4/127.0.0.1/tcp/5001')
 const status = {}
 
 for (const cid of cidsToPin) {
+  process.stdout.write(`adding ${cid}...`)
   const pinnedCid = await ipfs.pin.add(CID.parse(cid))
+  console.log('done')
   status[pinnedCid.toString()] = 'done'
 }
 
