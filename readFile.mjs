@@ -36,16 +36,16 @@ if (!process.argv[2]) {
 
 const cid = process.argv[2]
 
-console.log(
-  'decoder[1]=',
-  base58btc.decoder.decode('zb2rhWtbf4NmmFesESXhmnXSzqKDabqA8Ybj8276cUKvqCEvy')
-)
-console.log(
-  'decoder[2]=',
-  base32.decoder.decode(
-    'bafkreiadvmbcf6nelytob734qegv7zutfqbinmnyr6wiqgpv3zoyquge4y'
-  )
-)
+// console.log(
+//   'decoder[1]=',
+//   base58btc.decoder.decode('zb2rhWtbf4NmmFesESXhmnXSzqKDabqA8Ybj8276cUKvqCEvy')
+// )
+// console.log(
+//   'decoder[2]=',
+//   base32.decoder.decode(
+//     'bafkreiadvmbcf6nelytob734qegv7zutfqbinmnyr6wiqgpv3zoyquge4y'
+//   )
+// )
 
 const cidObject = CID.parse(cid)
 
@@ -67,11 +67,11 @@ const output = await pipe(ipfs.get(cidObject), tarballed, (source) =>
 )
 
 for (const file of output) {
-  // console.log('file=', file)
-  console.log(`writing ${file.header.name}.mp4...`)
+  console.log('file=', file)
+  console.log(`writing ${file.header.name}`)
   console.log('filename=', file.header.name)
   // console.log('content=', TypedArrays.uint8Array2string(file.body, 'utf8'))
-  writeFileSync(`${file.header.name}.mp4`, file.body)
+  writeFileSync(`${file.header.name}`, file.body)
 }
 
 // const output2 = await pipe(ipfs.get(cidObject), tarballed)

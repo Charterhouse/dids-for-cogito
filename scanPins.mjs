@@ -1,24 +1,35 @@
+import { writeFileSync } from 'node:fs'
 import { create } from 'ipfs-http-client'
 import { CID } from 'multiformats/cid'
+import { pipe } from 'it-pipe'
+import all from 'it-all'
 
 import { TypedArrays } from '@react-frontend-developer/buffers'
 
+if (!process.argv[2]) {
+  console.log('No file path provided')
+  process.exit()
+}
+
+const filepath = process.argv[2]
+
 const ipfs = create('/ip4/127.0.0.1/tcp/5001')
 
-// for await (const { cid, type } of ipfs.pin.ls({
-//   paths: [
-//     CID.parse('bafyreiaor5kkqobcv4fpoidiznucv57xsyfc4b7wqg5e3golrymoflo6o4'),
-//     CID.parse('bafyreiapdbcyox3ej6lzmpmhb72volys3durab4sa2u2stnwsjy7kfanmi'),
-//   ],
-// })) {
-for await (const { cid, type } of ipfs.pin.ls()) {
-  if (type !== 'recursive') continue
+const output = await pipe(ipfs.pin.ls(), (source) => all(source))
+
+const recursive = output.filter((o) => o.type === 'recursive')
+
+const res = await recursive.reduce(async (prevPromise, { cid, type }) => {
+  const acc = await prevPromise
   const { value } = await ipfs.dag.get(cid)
   if (value.json && value.json.boxNonce) {
-    console.log(`${cid.toString()}: hush-hush`)
+    acc[cid.toString()] = 'hush-hush'
   } else if (value.id && value.id.startsWith('did:ipid')) {
-    console.log(`${cid.toString()}: ${value.id}`)
+    acc[cid.toString()] = value.id
   } else {
-    console.log(`${cid.toString()}: UNKNOWN`)
+    acc[cid.toString()] = 'UNKNOWN'
   }
-}
+  return acc
+}, Promise.resolve({}))
+
+writeFileSync(filepath, JSON.stringify(res, undefined, '  '))
